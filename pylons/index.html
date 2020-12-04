@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Pylons</title>
+    <style>
+      .control {
+        border: 1px solid #888;
+        padding: 10px 20px;
+        margin: 10px 20px;
+        display: inline-block;
+        width: 270px;
+      }
+      img {
+        margin: 5px;
+        cursor: pointer;
+      }
+      .selected {
+        margin-top: 24px;
+      }
+      .left .selected {
+        float: right;
+        margin-left: 30px;
+      }
+      .right .selected {
+        float: left;
+        margin-right: 30px;
+      }
+      #solution {
+        font-size: 24px;
+      }
+      .caption {
+        font-size: 24px;
+        display: inline-block;
+        width: 310px;
+        margin: 10px 20px;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      var map = {
+        "red-red": "0?",
+        "red-white": "R2",
+        "red-blue": "L2",
+        "red-yellow": "L3",
+        "red-purple": "R1",
+        "red-green": "L1",
+
+        "white-red": "L2",
+        "white-white": "0?",
+        "white-blue": "R2",
+        "white-yellow": "R1",
+        "white-purple": "L1",
+        "white-green": "L3",
+
+        "blue-red": "R2",
+        "blue-white": "L2",
+        "blue-blue": "0?",
+        "blue-yellow": "L1",
+        "blue-purple": "L3",
+        "blue-green": "R1",
+
+        "yellow-red": "L3",
+        "yellow-white": "L1",
+        "yellow-blue": "R1",
+        "yellow-yellow": "0?",
+        "yellow-purple": "L2",
+        "yellow-green": "R2",
+
+        "purple-red": "L1",
+        "purple-white": "R1",
+        "purple-blue": "L3",
+        "purple-yellow": "R2",
+        "purple-purple": "0?",
+        "purple-green": "L2",
+
+        "green-red": "R1",
+        "green-white": "L3",
+        "green-blue": "L1",
+        "green-yellow": "L2",
+        "green-purple": "R2",
+        "green-green": "0?"
+      };
+
+      function update() {
+        var solution = "";
+        for(var i = 4; i >= 1; i--) {
+          var from = $("#control_left" + i + " .selected").data("color");
+          var to = $("#control_right" + i + " .selected").data("color");
+          if (!from || !to) {
+            solution += "?? ";
+            continue;
+          }
+          var t = map[from + "-" + to];
+          solution += t || "??";
+          solution += " ";
+        }
+        $("#solution").val(solution.trim());
+        $("#solution").focus().select();
+      }
+
+      $(document).on("click", "img", function(e) {
+        var target = $(e.target);
+        var selected = target.parent().find(".selected");
+        selected.attr("src", e.target.src).data("color", target.data("color"));
+        update();
+      });
+
+
+    </script>
+  </head>
+  <body>
+    <div class="caption" style="text-align: right">Start (center column)</div>
+    <div class="caption">Goal (left/right column)</div>
+    <input type="text" id="solution" value="Waiting for input...">
+    <br>
+    <div class="control left" id="control_left1">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <div class="control right" id="control_right1">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <br>
+    <div class="control left" id="control_left2">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <div class="control right" id="control_right2">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <br>
+    <div class="control left" id="control_left3">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <div class="control right" id="control_right3">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <br>
+    <div class="control left" id="control_left4">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <div class="control right" id="control_right4">
+      <img class="selected" width=48 height=48>
+      <img src="blue.png" width=48 height=48 alt="blue" title="blue" data-color="blue">
+      <img src="green.png" width=48 height=48 alt="green" title="green" data-color="green">
+      <img src="red.png" width=48 height=48 alt="red" title="red" data-color="red">
+      <br>
+      <img src="purple.png" width=48 height=48 alt="purple" title="purple" data-color="purple">
+      <img src="white.png" width=48 height=48 alt="white" title="white" data-color="white">
+      <img src="yellow.png" width=48 height=48 alt="yellow" title="yellow" data-color="yellow">
+    </div>
+    <br>
+  </body>
+</html>
